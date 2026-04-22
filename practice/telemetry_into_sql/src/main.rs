@@ -52,7 +52,19 @@ fn main() -> Result<()> {
                     &sample.total_memory
                 ],
             ) {
-                println!("DB insert failed: {}", e);
+                println!("DB insert failed: {}", e); 
+            }
+            if let Err(e) = conn.execute(
+                "DELETE FROM telemetry
+                WHERE id NOT IN (
+                    SELECT id
+                    FROM telemetry
+                    ORDER BY id DESC
+                    LIMIT 10
+                )",
+                [],
+            ) {
+                println!("DB delete failed: {}", e);
             }
             thread::sleep(time);
         }
