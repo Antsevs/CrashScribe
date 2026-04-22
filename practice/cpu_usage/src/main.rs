@@ -14,7 +14,7 @@ fn main() {
         let mut sys = System::new_all();    //system created
         loop {
             let cpu_avg = get_cpu_usage(&mut sys);
-            println!("{}", cpu_avg);
+            println!("CPU Avg: {:.2}%", cpu_avg);
             thread::sleep(time);
         }
     });
